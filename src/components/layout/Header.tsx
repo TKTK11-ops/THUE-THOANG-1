@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ChevronDown, ChevronRight, Search, HelpCircle, Check } from 'lucide-react'
+import { Menu, X, ChevronDown, ChevronRight, Search, Circle as HelpCircle, Check } from 'lucide-react'
 
 const aboutLinks = [
   { label: 'Landlords', to: '/landlords' },
@@ -191,10 +191,10 @@ export default function Header() {
                 Add Listing
               </Link>
               <Link
-                to="/sign-in"
+                to="/sign-up"
                 className={`px-4 py-2 rounded-lg text-sm font-medium ${textColor} hover:bg-white/10 transition-colors border ${showSolid ? 'border-neutral-300' : 'border-white/30'}`}
               >
-                Sign In
+                Sign Up
               </Link>
             </div>
 

@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout'
+import { AuthProvider } from './context/AuthContext'
+import AuthModal from './components/auth/AuthModal'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const LandlordsPage = lazy(() => import('./pages/LandlordsPage'))
@@ -21,34 +23,37 @@ function PageLoader() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/landlords" element={<LandlordsPage />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/rent-now" element={<RentNowPage />} />
-            <Route path="/faq" element={<FaqPage />} />
-            <Route path="/about" element={<PlaceholderPage />} />
-            <Route path="/tenants" element={<PlaceholderPage />} />
-            <Route path="/listing/add" element={<PlaceholderPage />} />
-            <Route path="/sign-in" element={<PlaceholderPage />} />
-            <Route path="/blog" element={<PlaceholderPage />} />
-            <Route path="/help" element={<PlaceholderPage />} />
-            <Route path="/community" element={<PlaceholderPage />} />
-            <Route path="/affiliates" element={<PlaceholderPage />} />
-            <Route path="/jobs" element={<PlaceholderPage />} />
-            <Route path="/terms" element={<PlaceholderPage />} />
-            <Route path="/privacy" element={<PlaceholderPage />} />
-            <Route path="/testimonials" element={<PlaceholderPage />} />
-            <Route path="/press" element={<PlaceholderPage />} />
-            <Route path="/services/:slug" element={<PlaceholderPage />} />
-            <Route path="/rent/:slug" element={<PlaceholderPage />} />
-            <Route path="*" element={<PlaceholderPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
+      <AuthProvider>
+        <AuthModal />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/landlords" element={<LandlordsPage />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/rent-now" element={<RentNowPage />} />
+              <Route path="/faq" element={<FaqPage />} />
+              <Route path="/about" element={<PlaceholderPage />} />
+              <Route path="/tenants" element={<PlaceholderPage />} />
+              <Route path="/listing/add" element={<PlaceholderPage />} />
+              <Route path="/sign-in" element={<PlaceholderPage />} />
+              <Route path="/blog" element={<PlaceholderPage />} />
+              <Route path="/help" element={<PlaceholderPage />} />
+              <Route path="/community" element={<PlaceholderPage />} />
+              <Route path="/affiliates" element={<PlaceholderPage />} />
+              <Route path="/jobs" element={<PlaceholderPage />} />
+              <Route path="/terms" element={<PlaceholderPage />} />
+              <Route path="/privacy" element={<PlaceholderPage />} />
+              <Route path="/testimonials" element={<PlaceholderPage />} />
+              <Route path="/press" element={<PlaceholderPage />} />
+              <Route path="/services/:slug" element={<PlaceholderPage />} />
+              <Route path="/rent/:slug" element={<PlaceholderPage />} />
+              <Route path="*" element={<PlaceholderPage />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ChevronDown, ChevronRight, Search, Circle as HelpCircle, Check } from 'lucide-react'
+import { Menu, X, ChevronDown, ChevronRight, Search, Circle as HelpCircle, Check, LogOut } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
 
 const aboutLinks = [
   { label: 'Landlords', to: '/landlords' },
@@ -36,6 +37,7 @@ const serviceLinksCol2 = [
 
 export default function Header() {
   const location = useLocation()
+  const { user, openModal, signOut } = useAuth()
   const isHome = location.pathname === '/'
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -184,18 +186,35 @@ export default function Header() {
             </nav>
 
             <div className="hidden lg:flex items-center gap-3">
-              <Link
-                to="/sign-in"
-                className="px-4 py-2 rounded-lg bg-success-600 text-white text-sm font-medium hover:bg-success-700 transition-colors"
-              >
-                Sign In
-              </Link>
-              <Link
-                to="/sign-up"
-                className={`px-4 py-2 rounded-lg text-sm font-medium ${textColor} hover:bg-white/10 transition-colors border ${showSolid ? 'border-neutral-300' : 'border-white/30'}`}
-              >
-                Sign Up
-              </Link>
+              {user ? (
+                <>
+                  <span className={`text-sm font-medium truncate max-w-[160px] ${textColor}`}>
+                    {user.email}
+                  </span>
+                  <button
+                    onClick={signOut}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium ${textColor} hover:bg-white/10 transition-colors cursor-pointer`}
+                  >
+                    <LogOut size={15} />
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => openModal('login')}
+                    className="px-4 py-2 rounded-lg bg-success-600 text-white text-sm font-medium hover:bg-success-700 transition-colors cursor-pointer"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => openModal('step1')}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium ${textColor} hover:bg-white/10 transition-colors border ${showSolid ? 'border-neutral-300' : 'border-white/30'} cursor-pointer`}
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )}
             </div>
 
             <div className="flex lg:hidden items-center gap-2">
@@ -276,10 +295,37 @@ export default function Header() {
                 <HelpCircle size={16} /> Help
               </Link>
 
-              <div className="px-5 py-3">
+              <div className="px-5 py-3 space-y-2">
+                {user ? (
+                  <>
+                    <p className="text-xs text-neutral-500 truncate">{user.email}</p>
+                    <button
+                      onClick={() => { setMobileOpen(false); signOut() }}
+                      className="flex items-center gap-2 w-full text-left px-4 py-2.5 rounded-lg border border-neutral-300 text-neutral-700 text-sm font-medium hover:bg-neutral-50 transition-colors cursor-pointer"
+                    >
+                      <LogOut size={15} />
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => { setMobileOpen(false); openModal('login') }}
+                      className="block w-full text-center px-4 py-2.5 rounded-lg bg-success-600 text-white text-sm font-medium hover:bg-success-700 transition-colors cursor-pointer"
+                    >
+                      Sign In
+                    </button>
+                    <button
+                      onClick={() => { setMobileOpen(false); openModal('step1') }}
+                      className="block w-full text-center px-4 py-2.5 rounded-lg border border-neutral-300 text-neutral-700 text-sm font-medium hover:bg-neutral-50 transition-colors cursor-pointer"
+                    >
+                      Sign Up
+                    </button>
+                  </>
+                )}
                 <Link
                   to="/listing/add"
-                  className="block w-full text-center px-4 py-2.5 rounded-lg bg-success-600 text-white text-sm font-medium hover:bg-success-700 transition-colors"
+                  className="block w-full text-center px-4 py-2.5 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700 transition-colors"
                 >
                   Add Listing
                 </Link>

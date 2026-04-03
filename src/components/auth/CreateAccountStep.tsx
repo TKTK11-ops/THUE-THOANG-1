@@ -1,11 +1,13 @@
 import { useState, type FormEvent } from 'react'
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { supabase } from '../../lib/supabase'
 import { suggestEmailCorrection } from './emailTypoDetector'
 
 export default function CreateAccountStep() {
   const { prefillEmail, goToStep, closeModal } = useAuth()
+  const navigate = useNavigate()
   const [email, setEmail] = useState(prefillEmail)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -51,6 +53,7 @@ export default function CreateAccountStep() {
     }
 
     closeModal()
+    navigate('/dashboard')
   }
 
   return (

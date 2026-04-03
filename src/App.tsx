@@ -11,6 +11,7 @@ const PricingPage = lazy(() => import('./pages/PricingPage'))
 const RentNowPage = lazy(() => import('./pages/RentNowPage'))
 const FaqPage = lazy(() => import('./pages/FaqPage'))
 const PlaceholderPage = lazy(() => import('./pages/PlaceholderPage'))
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
 
 function PageLoader() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/rent-now" element={<RentNowPage />} />
               <Route path="/faq" element={<FaqPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/about" element={<PlaceholderPage />} />
               <Route path="/tenants" element={<PlaceholderPage />} />
               <Route path="/listing/add" element={<PlaceholderPage />} />

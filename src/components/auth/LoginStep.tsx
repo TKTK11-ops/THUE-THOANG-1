@@ -1,10 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { supabase } from '../../lib/supabase'
 
 export default function LoginStep() {
   const { prefillEmail, goToStep, closeModal } = useAuth()
+  const navigate = useNavigate()
   const [email, setEmail] = useState(prefillEmail)
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -31,6 +33,7 @@ export default function LoginStep() {
     }
 
     closeModal()
+    navigate('/dashboard')
   }
 
   return (

@@ -185,10 +185,10 @@ export default function Header() {
 
             <div className="hidden lg:flex items-center gap-3">
               <Link
-                to="/listing/add"
+                to="/sign-in"
                 className="px-4 py-2 rounded-lg bg-success-600 text-white text-sm font-medium hover:bg-success-700 transition-colors"
               >
-                Add Listing
+                Sign In
               </Link>
               <Link
                 to="/sign-up"
